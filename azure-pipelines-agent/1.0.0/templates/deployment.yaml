@@ -42,8 +42,9 @@ spec:
           value: {{ .Values.pipelines.pat | quote }}
         - name: AZP_POOL
           value: {{ .Values.pipelines.pool | quote }}
-        - name: DOCKER_HOST
-          value: tcp://localhost:2375
+        volumeMounts:
+        - name: docker-socket
+          mountPath: /var/run/docker.sock
       - image: docker:dind
         name: "{{ .Chart.Name }}-daemon"
         securityContext:
@@ -51,6 +52,10 @@ spec:
         volumeMounts:
           - name: docker-graph-storage
             mountPath: /var/lib/docker
+          - name: docker-socket
+            mountPath: /var/run/docker.sock
       volumes:
       - name: docker-graph-storage
+        emptyDir: {}
+      - name: docker-socket
         emptyDir: {}
