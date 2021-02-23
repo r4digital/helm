@@ -44,7 +44,7 @@ spec:
           value: {{ .Values.pipelines.pool | quote }}
         volumeMounts:
         - name: docker-socket
-          mountPath: /var/run/docker.sock
+          mountPath: /var/run
       - image: docker:dind
         name: "{{ .Chart.Name }}-daemon"
         securityContext:
@@ -53,7 +53,7 @@ spec:
           - name: docker-graph-storage
             mountPath: /var/lib/docker
           - name: docker-socket
-            mountPath: /var/run/docker.sock
+            mountPath: /var/run
       volumes:
       - name: docker-graph-storage
         emptyDir: {}
