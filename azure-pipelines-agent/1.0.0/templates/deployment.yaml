@@ -42,10 +42,10 @@ spec:
           value: {{ .Values.pipelines.pat | quote }}
         - name: AZP_POOL
           value: {{ .Values.pipelines.pool | quote }}
-        volumeMounts:
-        - mountPath: /var/run/docker.sock
-          name: docker-volume
-      volumes:
-      - name: docker-volume
-        hostPath:
-          path: /var/run/docker.sock
+        # volumeMounts:
+        # - mountPath: /var/run/docker.sock
+        #   name: docker-volume
+      # volumes:
+      # - name: docker-volume
+      #   hostPath:
+      #     path: /var/run/docker.sock
