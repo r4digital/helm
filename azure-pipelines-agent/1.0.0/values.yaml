@@ -1,7 +1,7 @@
 image:
   repository: r4digital/azure-agent
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always # IfNotPresent
 replicaCount: 3
 pipelines:
   url: ""
