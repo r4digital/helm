@@ -45,17 +45,23 @@ spec:
         volumeMounts:
         - name: docker-socket
           mountPath: /var/run
+        - name: agent-externals
+          mountPath: /azp/agent/externals
       - image: docker:dind
         name: "{{ .Chart.Name }}-daemon"
         securityContext:
           privileged: true
         volumeMounts:
-          - name: docker-graph-storage
-            mountPath: /var/lib/docker
-          - name: docker-socket
-            mountPath: /var/run
+        - name: docker-graph-storage
+          mountPath: /var/lib/docker
+        - name: docker-socket
+          mountPath: /var/run
+        - name: agent-externals
+          mountPath: /azp/agent/externals
       volumes:
       - name: docker-graph-storage
         emptyDir: {}
       - name: docker-socket
+        emptyDir: {}
+      - name: agent-externals
         emptyDir: {}
