@@ -8,23 +8,13 @@ metadata:
     managed-by: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
-  minReadySeconds: 10
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
   selector:
     matchLabels:
       app: {{ include "service.name" . }}
-      service: {{ template "service.fullname" . }}
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "false"
       labels:
         app: {{ include "service.name" . }}
-        service: {{ template "service.fullname" . }}
     spec:
       containers:
       - image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -43,19 +33,10 @@ spec:
         - name: AZP_POOL
           value: {{ .Values.pipelines.pool | quote }}
         volumeMounts:
-        - name: docker-socket
-          mountPath: /var/run
-      - image: docker:dind
-        name: "{{ .Chart.Name }}-daemon"
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - name: docker-graph-storage
-          mountPath: /var/lib/docker
-        - name: docker-socket
-          mountPath: /var/run
+        - mountPath: /var/run/docker.sock
+          name: docker-volume
       volumes:
-      - name: docker-graph-storage
-        emptyDir: {}
-      - name: docker-socket
-        emptyDir: {}
+      - name: docker-volume
+        hostPath:
+          path: /var/run/docker.sock
+
