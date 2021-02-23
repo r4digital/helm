@@ -1,0 +1,12 @@
+image:
+  repository: r4digital/azure-agent
+  tag: latest
+  pullPolicy: IfNotPresent
+replicaCount: 3
+pipelines:
+  url: ""
+  pat: ""
+  pool: ""
+serviceAccount:
+  create: true
+  clusterAdmin: false

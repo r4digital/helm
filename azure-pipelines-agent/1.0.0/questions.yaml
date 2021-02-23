@@ -1,0 +1,32 @@
+questions:
+- variable: pipelines.url
+  default: ""
+  description: "The Azure base URL for your organization"
+  type: string
+  required: true
+  group: "Secret Settings"
+- variable: pipelines.pat
+  default: ""
+  description: "Personal Access Token (PAT) used by the agent to connect"
+  type: string
+  required: true
+  group: "Secret Settings"
+- variable: pipelines.pool
+  default: "Default"
+  description: "Agent pool to which the Agent should register"
+  type: string
+  required: true
+  group: "Secret Settings"
+
+- variable: serviceAccount.create
+  default: "true"
+  description: "Create ServiceAccount"
+  type: boolean
+  required: true
+  group: "Service Account Settings"
+- variable: serviceAccount.clusterAdmin
+  default: "false"
+  description: "Sets the service account as a cluster admin"
+  type: boolean
+  required: true
+  group: "Service Account Settings"
